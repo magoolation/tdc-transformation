@@ -15,23 +15,30 @@ namespace XamarinDemo
     {
         private Random rnd = new Random();
         private int _number;
+        private int _max = 9;
         private  int _tries = 0;
 
         public MainPage()
         {
-            InitializeComponent();
+            InitializeComponent();            
+            NewGame.IsEnabled = false;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
 
             StartNewGame();
-            NewGame.IsEnabled = false;
         }
 
         private void StartNewGame()
         {
             _tries = 0;
-            _number = 1 + rnd.Next(99);
+            _number = 1 + rnd.Next(_max);
 
             Analytics.TrackEvent("New Game", new Dictionary<string, string>()
             {
+                { "Level", (_max + 1).ToString() },
                 { "Value", _number.ToString() }
             });
 
@@ -91,8 +98,23 @@ namespace XamarinDemo
             }
         }
 
-        private void NewGame_Button_Clicked(object sender, EventArgs e)
+        private async void NewGame_Button_Clicked(object sender, EventArgs e)
         {
+            string option = await DisplayActionSheet("Choose a Level", "Cancel", null, new string[] { "10", "50", "100" });
+
+            _max = option switch
+            {
+                "10" => 9,
+            "50" => 49,
+            "100" => 99,
+            _ => 0
+        };
+
+        if (_max == 0)
+            {
+            return;
+            }
+
             StartNewGame();
         }
     }

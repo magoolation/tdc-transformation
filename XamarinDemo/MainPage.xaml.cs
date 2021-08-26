@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AppCenter;
+using Microsoft.AppCenter.Crashes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,6 +15,11 @@ namespace XamarinDemo
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        private void Crash_Button_Clicked(object sender, EventArgs e)
+        {
+            Crashes.GenerateTestCrash();
         }
     }
 }

@@ -30,17 +30,30 @@ namespace XamarinDemo
 
         private void Guess_Button_Clicked(object sender, EventArgs e)
         {
-            int guess = int.Parse(Guess.Text);
+            try
+            {
+                int guess = int.Parse(Guess.Text);
 
-            if (guess == _number)
-            {
-                DisplayAlert("Success", "You got it!", "OK");
-                Submit.IsEnabled = false;
-                NewGame.IsEnabled = true;
+                if (guess == _number)
+                {
+                    DisplayAlert("Success", "You got it!", "OK");
+                    Submit.IsEnabled = false;
+                    NewGame.IsEnabled = true;
+                }
+                else
+                {
+                    DisplayAlert("Oops", "Not this time! Please try again!", "OK");
+                    Guess.Text = "";
+                    Guess.Focus();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                DisplayAlert("Oops", "Not this time! Please try again!", "OK");
+                Crashes.TrackError(ex, new Dictionary<string, string>()
+                {
+                    { "Value", Guess.Text },
+                });
+                DisplayAlert("Error", "Invalid input. Please try again!", "OK");
                 Guess.Text = "";
                 Guess.Focus();
             }

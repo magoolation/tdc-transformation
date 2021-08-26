@@ -8,7 +8,17 @@
             <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
         </Frame>
 
-        <Button Text="Test Diagnostics" Clicked="Crash_Button_Clicked" />
+        <Button Text="Test Diagnostics" Clicked="Crash_Button_Clicked" HorizontalOptions="Center" />
+
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+            <StackLayout>
+                <Label TextColor="White">Guess a number between 1 and 100</Label>
+                <Entry x:Name="Guess" Placeholder="Enter a number" BackgroundColor="White" TextColor="Black" PlaceholderColor="LightGray" />
+                <Button Text="Guess" Clicked="Guess_Button_Clicked" HorizontalOptions="End" x:Name="Submit" />
+            </StackLayout>
+        </Frame>
+
+        <Button Text="New Game" HorizontalOptions="CenterAndExpand" Clicked="NewGame_Button_Clicked" x:Name="NewGame" />
 
     </StackLayout>
 
